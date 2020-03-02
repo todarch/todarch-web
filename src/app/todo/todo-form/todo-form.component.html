@@ -1,0 +1,35 @@
+<form [formGroup]="todoForm" novalidate (ngSubmit)="onSubmit()">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>{{pageHeader}}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row">
+        <div class="col">
+          <mat-form-field appearance="fill">
+            <mat-label>Enter todo title</mat-label>
+            <input matInput formControlName="title">
+            <mat-error *ngIf="todoForm.controls['title'].hasError('required')">
+              Title is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field appearance="fill">
+            <mat-label>Enter todo description</mat-label>
+            <textarea matInput placeholder="Ex. describe the details of todo" formControlName="description"></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button type="button" (click)="delete()" *ngIf="todo.id">Delete</button>
+      <button mat-raised-button type="button" (click)="back()">Cancel</button>
+      <button mat-raised-button
+              color="primary"
+              type="submit"
+              [disabled]="todoForm.invalid">
+        {{buttonText}}</button>
+    </mat-card-actions>
+  </mat-card>
+</form>
