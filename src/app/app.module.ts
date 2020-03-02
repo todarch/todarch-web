@@ -7,25 +7,32 @@ import {AppComponent} from './app.component';
 import {NotFoundComponent} from './not-found/not-found.component';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {TodoModule} from './todo/todo.module';
-import { LoginComponent } from './user/login/login.component';
 import {UserModule} from './user/user.module';
 import {RouterModule} from '@angular/router';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MaterialModule} from './material/material.module';
+import {NavComponent} from './nav/nav.component';
+import { WelcomeComponent } from './welcome/welcome.component';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
     NotFoundComponent,
     DashboardComponent,
+    NavComponent,
+    WelcomeComponent,
   ],
   imports: [
     BrowserModule,
     RouterModule,
     FormsModule,
+    HttpClientModule,
     UserModule,
     TodoModule,
-    AppRoutingModule,
-    BrowserAnimationsModule, // keep it at the bottom for route matching
+    AppRoutingModule, // keep it at the bottom for route matching
+    BrowserAnimationsModule,
+    MaterialModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

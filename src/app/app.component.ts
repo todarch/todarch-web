@@ -1,6 +1,4 @@
-import { Component } from '@angular/core';
-import {Router} from '@angular/router';
-import {AuthService} from './user/auth.service';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -10,12 +8,4 @@ import {AuthService} from './user/auth.service';
 export class AppComponent {
   title = 'todarch-web';
 
-  constructor(private authService: AuthService,
-              private router: Router) {}
-
-  logOut(): void {
-    // log out the user
-    this.authService.logout();
-    this.router.navigateByUrl('/welcome'); // absolute navigate
-  }
 }

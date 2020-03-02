@@ -1,9 +1,1 @@
-<a [routerLink]="['/todos']">Todos</a>
-<a [routerLink]="['/dashboard']">Dashboard</a>
-<div *ngIf="!isLoggedIn">
-  <a [routerLink]="['/login']">Login</a>
-</div>
-<div *ngIf="!authService.isGuest()">
-  <a (click)="logOut()">Logout</a>
-</div>
-<router-outlet></router-outlet>
+<app-nav></app-nav>
