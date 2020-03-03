@@ -18,6 +18,7 @@ Run `ng generate component component-name` to generate a new component. You can 
 ```shell script
 ng generate module module-name --routing
 ng generate component module-name/component-name -m module-name
+ng generate module shared/material --flat -d
 ```
 
 ## Build
