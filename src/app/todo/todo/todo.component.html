@@ -5,6 +5,9 @@
       <p>
         {{todo.description? todo.description : 'no description'}}
       </p>
+      <p *ngIf="todo.deadline">
+        Deadline is set to {{todo.deadline | date: 'medium'}}
+      </p>
     </mat-card-content>
     <mat-card-actions>
       <button mat-button (click)="goBack()">GO BACK</button>

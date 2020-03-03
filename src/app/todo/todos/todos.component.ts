@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {Todo, TodoService} from '../todo.service';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
@@ -22,6 +22,7 @@ export class TodosComponent implements OnInit {
   displayedColumns = [
     'id',
     'title',
+    'priority',
     'actions'
   ];
 
@@ -33,7 +34,8 @@ export class TodosComponent implements OnInit {
   }
 
   private getTodos() {
-    this.todoService.getTodos().subscribe(
+    this.todoService.getAllTodos()
+      .subscribe(
       todos => {
         this.todos = todos;
         this.dataSource = new MatTableDataSource<Todo>(todos);
@@ -73,6 +75,10 @@ export class TodosComponent implements OnInit {
           });
       }
     });
+
+  }
+
+  done(row: Todo) {
 
   }
 }

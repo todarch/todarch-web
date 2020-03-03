@@ -26,13 +26,14 @@ export class TodoComponent implements OnInit {
   }
 
   getTodoById(id: string) {
-    this.todoService.getById(id).subscribe(todo => {
-      if (!todo) {
-        this.router.navigate(['/not-found']);
-      }
-      this.onTodoRetrieved(todo);
-      }
-    );
+    this.todoService.getById(id)
+      .subscribe((todo: Todo) => {
+          if (!todo) {
+            this.router.navigate(['/not-found']);
+          }
+          this.onTodoRetrieved(todo);
+        }
+      );
   }
 
   private onTodoRetrieved(todo: Todo) {

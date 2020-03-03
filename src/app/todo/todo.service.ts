@@ -1,52 +1,52 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
+import {catchError} from 'rxjs/operators';
+import {AbstractService} from '../shared/abstract.service';
+import {ErrorResponse} from '../shared/error-response';
 
 export class Todo {
   id: string;
   title: string;
   description?: string;
+  priority: number;
+  deadline?: number;
 }
-
-const todos = [
-  {
-    id: 'xyz',
-    title: 'Hello todo',
-  }
-];
 
 @Injectable({
   providedIn: 'root'
 })
-export class TodoService {
-  base = 'http://localhost:3000';
+export class TodoService extends AbstractService {
   resource = '/todos';
 
-  constructor(private http: HttpClient) {}
-
-  get url() {
-    return this.base + this.resource;
+  constructor(private http: HttpClient) {
+    super();
   }
 
-  getById(id: string): Observable<Todo> {
+  getById(id: string): Observable<Todo | ErrorResponse> {
     const intId = +id;
-    return this.http.get<Todo>(`${this.url}/${intId}`);
+    return this.http.get<Todo>(`${this.url}/${intId}`)
+      .pipe(
+        catchError( err => this.handleError(`TodoService.getById(${id} failed`, err))
+      );
   }
 
-  getTodos(): Observable<Todo[]> {
+  getAllTodos(): Observable<Todo[]> {
     return this.http.get<Todo[]>(this.url);
   }
 
-  create<T>(body: any) {
-    return this.http.post<T>(this.url, body);
+  create(newTodo: Todo): Observable<Todo> {
+    return this.http.post<Todo>(this.url, newTodo);
   }
 
-  update<T>(id: string, body: any) {
-    return this.http.put<T>(this.url + '/' + id, body);
+  update(updatedTodo: Todo): Observable<void> {
+    const id = updatedTodo.id;
+    return this.http.put<void>(this.url + '/' + id, updatedTodo);
+    // put does not have to return something
   }
 
-  deleteById(id: string) {
+  deleteById(id: string): Observable<void> {
     const intId = +id;
-    return this.http.delete(`${this.url}/${intId}`);
+    return this.http.delete<void>(`${this.url}/${intId}`);
   }
 }
