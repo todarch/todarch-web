@@ -1,19 +1,38 @@
 import { Injectable } from '@angular/core';
+import {AbstractService} from '../shared/abstract.service';
+import {EMPTY, Observable, of} from 'rxjs';
+import {ErrorResponse} from '../shared/error-response';
+import {HttpClient} from '@angular/common/http';
+import {catchError, map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class AuthService extends AbstractService {
+  resource = '/users';
 
-  constructor() { }
+  constructor(private http: HttpClient) {
+    super();
+  }
 
-  login(username: string, password: string) {
+  login(username: string, password: string): Observable<undefined | ErrorResponse> {
+    let userId = 1;
     if (username === 'selimssevgi' && password === '123') {
-      localStorage.setItem('username', username);
-      return true;
+      userId = 1;
     } else {
-      return false;
+      userId = 2;
     }
+
+    return this.http.get(`${this.url}/${userId}`)
+      .pipe(
+        map(() => {
+          localStorage.setItem('username', username);
+          return undefined;
+        }),
+        catchError(error => {
+          return this.handleError(`AuthService.login(${username} failed`, error);
+        })
+      );
   }
 
   logout() {
