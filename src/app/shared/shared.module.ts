@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {DeleteDialogComponent} from './delete-dialog/delete-dialog.component';
 import {MaterialModule} from '../material/material.module';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {AddHeaderInterceptor} from './add-header.interceptor';

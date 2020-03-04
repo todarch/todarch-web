@@ -11,31 +11,41 @@
       "id": 2,
       "title": "add logout button on top right side",
       "description": "it would make more sense that way, use dropdown profile etc",
-      "priority": 8
+      "priority": 8,
+      "isPrivate": false,
+      "status": "DONE"
     },
     {
       "id": 3,
       "title": "add mark as done icon in actions",
       "description": "that will also be one of the quick actions",
-      "priority": 8
+      "priority": 8,
+      "isPrivate": false,
+      "status": "DONE"
     },
     {
       "id": 4,
       "title": "add tabs to dashboard",
       "description": "tabs could be like today/suggested/recently done",
-      "priority": 6
+      "priority": 6,
+      "isPrivate": false,
+      "status": "TODO"
     },
     {
       "id": 5,
       "title": "setup atlassian jira for personal use",
       "description": "https://confluence.atlassian.com/adminjiraserver/installing-jira-applications-on-linux-938846841.html,\nhttps://www.atlassian.com/software/jira/pricing?tab=self-managed",
-      "priority": 3
+      "priority": 3,
+      "isPrivate": false,
+      "status": "TODO"
     },
     {
       "id": 6,
       "title": "change date formatting to D/M/Y",
       "description": "can be done via material global configuration",
       "priority": "5",
+      "status": "TODO",
+      "isPrivate": false,
       "deadline": "2020-03-04T23:00:00.000Z"
     },
     {
@@ -43,7 +53,36 @@
       "title": "add private property to todo",
       "description": "some todos could be marked as private, so they will not show up on the all the time but only when specially requested.",
       "priority": 8,
-      "deadline": "2020-03-12T23:00:00.000Z"
+      "status": "DONE",
+      "isPrivate": false,
+      "deadline": "2020-03-12T23:00:00.000Z",
+      "doneOn": 1583355400626
+    },
+    {
+      "id": 8,
+      "title": "add search bar at the top toolbar",
+      "description": "one of the main focus of the application is searching todos",
+      "priority": 9,
+      "deadline": "2020-03-12T23:00:00.000Z",
+      "isPrivate": false,
+      "status": "TODO"
+    },
+    {
+      "id": 9,
+      "title": "private todo",
+      "description": "",
+      "priority": "5",
+      "deadline": "2020-03-04T23:00:00.000Z",
+      "isPrivate": true,
+      "status": "TODO"
+    },
+    {
+      "id": 10,
+      "title": "use keycloak for user auth and management",
+      "description": "application focus on todos not on user management, we can delegate that responsibility for now",
+      "priority": "5",
+      "isPrivate": false,
+      "status": "TODO"
     }
   ]
 }

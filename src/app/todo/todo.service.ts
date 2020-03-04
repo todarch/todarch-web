@@ -11,6 +11,9 @@ export class Todo {
   description?: string;
   priority: number;
   deadline?: number;
+  status: string;
+  isPrivate: boolean;
+  doneOn?: number;
 }
 
 @Injectable({
@@ -35,7 +38,15 @@ export class TodoService extends AbstractService {
     return this.http.get<Todo[]>(this.url);
   }
 
+  getNotFinalizedTodos(): Observable<Todo[] | ErrorResponse> {
+    return this.http.get<Todo[]>(`${this.url}?status=TODO`)
+      .pipe(
+        catchError( err => this.handleError(`TodoService.getNotFinalized failed`, err))
+      );
+  }
+
   create(newTodo: Todo): Observable<Todo> {
+    newTodo.status = 'TODO';
     return this.http.post<Todo>(this.url, newTodo);
   }
 
@@ -48,5 +59,14 @@ export class TodoService extends AbstractService {
   deleteById(id: string): Observable<void> {
     const intId = +id;
     return this.http.delete<void>(`${this.url}/${intId}`);
+  }
+
+  markAsDone(todo: Todo) {
+    todo.status = 'DONE';
+    todo.doneOn = new Date().getTime();
+    return this.http.put<void>(this.url + '/' + todo.id, todo)
+      .pipe(
+        catchError(err => this.handleError(`failed to mark as done ${todo.id}`, err))
+      );
   }
 }

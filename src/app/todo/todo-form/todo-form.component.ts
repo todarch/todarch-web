@@ -32,7 +32,8 @@ export class TodoFormComponent implements OnInit {
       title: ['', Validators.required],
       description: [''],
       priority: ['5', Validators.required],
-      deadline: ['0']
+      deadline: [{ value: '0', disabled: true }],
+      isPrivate: [false]
     });
   }
 

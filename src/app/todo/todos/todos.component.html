@@ -3,7 +3,8 @@
 <!--  <a [routerLink]="['/todos', todo.id, 'edit']">Edit</a>-->
 <!--  <a [routerLink]="['/todos', 0, 'edit']">Create</a>-->
 <!--</div>-->
-<h1 class="mat-h1">Todos</h1>
+<h1 class="mat-h1">Todos
+</h1>
 <div *ngIf="!hasTodos()">
   <p>You have no todos yet!</p>
   <button mat-raised-button
@@ -13,10 +14,12 @@
 </div>
 
 <div *ngIf="hasTodos()">
-  <!--  <mat-form-field>-->
-  <!--    <mat-label>Filter</mat-label>-->
-  <!--    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. payment id|terminal id|date">-->
-  <!--  </mat-form-field>-->
+
+  <mat-slide-toggle (change)="togglePrivate($event)">Show Private</mat-slide-toggle>
+  <mat-form-field>
+    <mat-label>Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. type something">
+  </mat-form-field>
   <div class="mat-elevation-z8">
     <table #xtable mat-table [dataSource]="dataSource" class="full-width-table" matSort aria-label="Elements">
       <!-- Id Column -->
@@ -46,7 +49,7 @@
             <mat-icon aria-hidden="false" aria-label="Edit" >edit</mat-icon>
           </button>
           <button mat-button (click)="done(row)">
-          <mat-icon aria-hidden="false" aria-label="Mark as Done">done</mat-icon>
+            <mat-icon aria-hidden="false" aria-label="Mark as Done">done</mat-icon>
           </button>
           <button mat-button (click)="delete(row)">
             <mat-icon aria-hidden="false" aria-label="Delete">delete</mat-icon>

@@ -8,10 +8,16 @@
       <p *ngIf="todo.deadline">
         Deadline is set to {{todo.deadline | date: 'medium'}}
       </p>
+      <p *ngIf="todo.isPrivate">
+        This todo is private.
+      </p>
+      <p *ngIf="todo.doneOn">
+        This todo is done on {{todo.doneOn | date: 'medium'}}
+      </p>
     </mat-card-content>
     <mat-card-actions>
       <button mat-button (click)="goBack()">GO BACK</button>
-      <button mat-button [routerLink]="['/todos', todo.id, 'edit']">EDIT</button>
+      <button mat-button [routerLink]="['/todos', todo.id, 'edit']" disabled="{{todo.doneOn ? true : false}}">EDIT</button>
       <button mat-button routerLink="/todos">ALL</button>
     </mat-card-actions>
   </mat-card>

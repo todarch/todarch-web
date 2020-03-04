@@ -17,6 +17,8 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatSliderModule} from '@angular/material/slider';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 
 /**
@@ -43,8 +45,10 @@ import {MatNativeDateModule} from '@angular/material/core';
     MatMenuModule,
     MatDialogModule,
     MatSliderModule,
+    MatSlideToggleModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatSnackBarModule,
   ]
 })
 export class MaterialModule { }
