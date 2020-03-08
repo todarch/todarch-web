@@ -5,6 +5,8 @@ import {Todo, TodoService} from '../todo.service';
 import {Location} from '@angular/common';
 import {MatDialog} from '@angular/material/dialog';
 import {DeleteDialogComponent} from '../../shared/delete-dialog/delete-dialog.component';
+import {ErrorResponse} from '../../shared/error-response';
+import {catchError} from 'rxjs/operators';
 
 @Component({
   selector: 'app-todo-form',
@@ -16,6 +18,8 @@ export class TodoFormComponent implements OnInit {
   todo: Todo;
   pageHeader: string;
   buttonText: string;
+  errorResponse: ErrorResponse;
+  minDate = new Date();
 
   constructor(private formBuilder: FormBuilder,
               private location: Location,
@@ -27,6 +31,9 @@ export class TodoFormComponent implements OnInit {
       id: [''],
       title: ['', Validators.required],
       description: [''],
+      priority: ['5', Validators.required],
+      deadline: [{ value: '0', disabled: true }],
+      isPrivate: [false]
     });
   }
 
@@ -45,13 +52,15 @@ export class TodoFormComponent implements OnInit {
     this.route.params.subscribe(params => {
       const todoId = params.id;
       if (todoId) {
-        this.todoService.getById(todoId).subscribe(todo => {
-          this.todoForm.patchValue(todo);
-          this.todo = todo;
-          this.pageHeader = 'Edit Todo';
-          this.buttonText = 'Save';
-          // this.loadingService.resolve('invoice');
-        });
+        this.todoService.getById(todoId)
+          .subscribe((todo: Todo) => {
+              this.todoForm.patchValue(todo);
+              this.todo = todo;
+              this.pageHeader = 'Edit Todo';
+              this.buttonText = 'Save';
+              // this.loadingService.resolve('invoice');
+            },
+            err => this.router.navigate(['/not-found']));
       } else {
         this.todo = new Todo();
         this.pageHeader = 'New Todo';
@@ -63,14 +72,14 @@ export class TodoFormComponent implements OnInit {
 
   onSubmit() {
     if (this.todo.id) {
-      this.todoService.update<Todo>(this.todo.id, this.todoForm.value)
-        .subscribe(response => {
-          this.view(response.id);
+      this.todoService.update(this.todoForm.value)
+        .subscribe(emptyResponse => {
+          this.view(this.todo.id);
         });
     } else {
-      this.todoService.create<Todo>(this.todoForm.value)
-        .subscribe(response => {
-          this.view(response.id);
+      this.todoService.create(this.todoForm.value)
+        .subscribe(todo => {
+          this.view(todo.id);
         });
     }
   }

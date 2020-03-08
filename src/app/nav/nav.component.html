@@ -37,7 +37,10 @@
         <button mat-button routerLink="/todos/new">
           <mat-icon class="example-icon" aria-hidden="false" aria-label="Create New Todo">add</mat-icon>
         </button>
-        <button mat-button [matMenuTriggerFor]="menu">Profile</button>
+        <button mat-button [matMenuTriggerFor]="menu">
+          Profile
+          <mat-icon aria-label="Profile options">arrow_drop_down</mat-icon>
+        </button>
         <mat-menu #menu="matMenu">
           <button mat-menu-item>Settings</button>
           <button mat-menu-item (click)="logOut()">Log out</button>

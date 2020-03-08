@@ -7,6 +7,7 @@ import {WelcomeComponent} from './welcome/welcome.component';
 
 
 const routes: Routes = [
+  { path: 'demo', loadChildren: '/demo/demo.module#DemoModule'},
   { path: 'welcome', component: WelcomeComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService]},
   { path: '', redirectTo: '/welcome', pathMatch: 'full' },

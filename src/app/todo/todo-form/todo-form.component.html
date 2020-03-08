@@ -8,7 +8,7 @@
         <div class="col">
           <mat-form-field appearance="fill">
             <mat-label>Enter todo title</mat-label>
-            <input matInput formControlName="title">
+            <input matInput formControlName="title" required>
             <mat-error *ngIf="todoForm.controls['title'].hasError('required')">
               Title is <strong>required</strong>
             </mat-error>
@@ -20,6 +20,25 @@
             <textarea matInput placeholder="Ex. describe the details of todo" formControlName="description"></textarea>
           </mat-form-field>
         </div>
+      </div>
+      <div class="col">
+        <mat-form-field appearance="fill">
+          <mat-label>Select priority</mat-label>
+          <mat-slider thumbLabel tickInterval="1"
+                      min="1" max="10" step="1" value="5" formControlName="priority">Select</mat-slider>
+          <input matInput #value hidden />
+        </mat-form-field>
+      </div>
+      <div class="col">
+        <mat-form-field appearance="fill">
+          <mat-label>Set deadline</mat-label>
+          <input matInput [min]="minDate" [matDatepicker]="picker" formControlName="deadline">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker disabled="false"></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="col">
+          <mat-slide-toggle formControlName="isPrivate">Is it private?</mat-slide-toggle>
       </div>
     </mat-card-content>
     <mat-card-actions>

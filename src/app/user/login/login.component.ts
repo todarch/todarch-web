@@ -11,6 +11,7 @@ import {FormBuilder, Validators} from '@angular/forms';
 export class LoginComponent implements OnInit {
   return = '';
   hide = true;
+  loginFailed = false;
 
   loginForm = this.fb.group({
     username: [null, Validators.required],
@@ -37,7 +38,12 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     const username = this.loginForm.value.username;
     const password = this.loginForm.value.password;
-    this.authService.login(username, password);
-    this.go();
+    this.authService.login(username, password)
+      .subscribe(
+        () => {
+          this.go();
+        },
+        err => this.loginFailed = true
+      );
   }
 }
