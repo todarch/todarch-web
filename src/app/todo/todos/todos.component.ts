@@ -13,7 +13,7 @@ import {MatSlideToggleChange} from '@angular/material/slide-toggle';
   templateUrl: './todos.component.html',
   styleUrls: ['./todos.component.css']
 })
-export class TodosComponent implements OnInit {
+export class TodosComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatTable) table: MatTable<Todo>;
@@ -35,6 +35,9 @@ export class TodosComponent implements OnInit {
 
   ngOnInit(): void {
     this.getTodos();
+  }
+
+  ngAfterViewInit(): void {
   }
 
   private getTodos() {
@@ -107,8 +110,7 @@ export class TodosComponent implements OnInit {
     this.snackBarService.open('Something went wrong, try again later.', 'OK', {duration: 2000});
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
+  applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 

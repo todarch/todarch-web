@@ -1,10 +1,5 @@
-<!--<div *ngFor="let todo of todos">-->
-<!--  <a [routerLink]="['/todos', todo.id]">{{todo.title}}</a>-->
-<!--  <a [routerLink]="['/todos', todo.id, 'edit']">Edit</a>-->
-<!--  <a [routerLink]="['/todos', 0, 'edit']">Create</a>-->
-<!--</div>-->
-<h1 class="mat-h1">Todos
-</h1>
+<!--<h1 class="mat-h1">Todos-->
+<!--</h1>-->
 <div *ngIf="!hasTodos()">
   <p>You have no todos yet!</p>
   <button mat-raised-button
@@ -13,15 +8,21 @@
     Add Todo</button>
 </div>
 
-<div *ngIf="hasTodos()">
+  <mat-tab-group>
+    <mat-tab label="Today"></mat-tab>
+    <mat-tab label="All"> Content 2 </mat-tab>
+    <mat-tab label="Done"> Content 3 </mat-tab>
+  </mat-tab-group>
 
-  <mat-slide-toggle (change)="togglePrivate($event)">Show Private</mat-slide-toggle>
-  <mat-form-field>
+<div class="example-container">
+  <mat-form-field appearance="fill" class="table-filter-input">
     <mat-label>Filter</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. type something">
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Ex. type something">
   </mat-form-field>
+    <mat-slide-toggle (change)="togglePrivate($event)">Show Private</mat-slide-toggle>
+</div>
   <div class="mat-elevation-z8">
-    <table #xtable mat-table [dataSource]="dataSource" class="full-width-table" matSort aria-label="Elements">
+    <table mat-table [dataSource]="dataSource" class="full-width-table" matSort aria-label="Elements">
       <!-- Id Column -->
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
@@ -70,4 +71,3 @@
                    [pageSizeOptions]="[25, 50, 100, 250]">
     </mat-paginator>
   </div>
-</div>

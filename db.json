@@ -83,6 +83,38 @@
       "priority": "5",
       "isPrivate": false,
       "status": "TODO"
+    },
+    {
+      "id": 11,
+      "title": "fix table sorting",
+      "description": "it would be helpful to sort table column, see what it does not work",
+      "priority": "5",
+      "isPrivate": false,
+      "status": "TODO"
+    },
+    {
+      "id": 12,
+      "title": "should be able to add tags to todos",
+      "description": "",
+      "priority": 7,
+      "isPrivate": false,
+      "status": "TODO"
+    },
+    {
+      "id": 13,
+      "title": "check out circleci course on pluralsight",
+      "description": "https://app.pluralsight.com/library/courses/circleci-github-getting-started/table-of-contents",
+      "priority": "5",
+      "isPrivate": false,
+      "status": "TODO"
+    },
+    {
+      "id": 14,
+      "title": "should be able to add todo via speaking",
+      "description": "it would be faster and efficient, user may not have time or motivation or type all of it",
+      "priority": "5",
+      "isPrivate": false,
+      "status": "TODO"
     }
   ]
 }
