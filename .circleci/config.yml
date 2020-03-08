@@ -1,6 +1,7 @@
 version: 2.1
 orbs:
   node: circleci/node@1.1.6
+  docker-publish: circleci/docker-publish@0.1.7
 jobs:
   build-and-test:
     executor:
@@ -11,7 +12,21 @@ jobs:
           steps:
             - run: npm install
             #- run: npm test
+  build-and-publish-docker-image:
+    steps:
+      - run:
+          name: Setup Environment Variables
+          command: |
+            echo "export TAG_SUFFIX=$(date +%Y%m%d%H%M%S)" >> $BASH_ENV
+            echo 'export TAG="${CIRCLE_BRANCH}-${TAG_SUFFIX}"' >> $BASH_ENV
+      - docker-publish/publish:
+          image: todarch/web
+          tag: $TAG
+      
 workflows:
     build-and-test:
       jobs:
         - build-and-test
+    build-and-publish-docker-image:
+      jobs:
+        - build-and-publish-docker-image
