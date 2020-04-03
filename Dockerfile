@@ -28,8 +28,8 @@ COPY . /app
 # RUN ng test --watch=false
 # RUN ng e2e --port 4202
 
-# generate build
-RUN ng build --output-path=dist
+# generate build with enableProdMode()
+RUN ng build --output-path=dist --prod
 
 ############
 ### prod ###
@@ -40,6 +40,8 @@ FROM nginx:1.17.9-alpine
 
 # copy artifact build from the 'build environment'
 COPY --from=build /app/dist /usr/share/nginx/html
+
+COPY default.conf /etc/nginx/conf.d/
 
 # expose port 80
 EXPOSE 80
