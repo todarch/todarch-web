@@ -39,3 +39,13 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 docker build -f Dockerfile -t todarch:web .
 docker run -it -p 80:80 --rm todarch:web
 ```
+
+## keycloak integration
+
+```shell
+npm i keycloak-js --save
+# update main.ts
+```
+
+- add cors value on keycloak client configuration
+
