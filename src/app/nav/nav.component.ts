@@ -1,16 +1,19 @@
-import { Component } from '@angular/core';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Observable } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
-import {AuthService} from '../user/auth.service';
+import {Component, Input, OnInit} from '@angular/core';
+import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
+import {Observable} from 'rxjs';
+import {map, shareReplay} from 'rxjs/operators';
 import {Router} from '@angular/router';
+import {KeycloakProfile} from 'keycloak-js';
+import {KeycloakService} from 'keycloak-angular';
 
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.css']
 })
-export class NavComponent {
+export class NavComponent implements OnInit {
+  userDetails: KeycloakProfile;
+  isGuest;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -20,12 +23,17 @@ export class NavComponent {
     );
 
   constructor(private breakpointObserver: BreakpointObserver,
-              public authService: AuthService,
-              private router: Router) {}
+              private keycloakService: KeycloakService) {}
 
-  logOut(): void {
-    // log out the user
-    this.authService.logout();
-    this.router.navigateByUrl('/welcome'); // absolute navigate
+  async ngOnInit() {
+    if (await this.keycloakService.isLoggedIn()) {
+      this.userDetails = await this.keycloakService.loadUserProfile();
+      this.isGuest = false;
+    }
+  }
+
+  async doLogout() {
+    await this.keycloakService.logout();
+    this.isGuest = true;
   }
 }

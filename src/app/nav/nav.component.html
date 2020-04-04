@@ -5,35 +5,39 @@
       [opened]="(isHandset$ | async) === false">
     <mat-toolbar>Menu</mat-toolbar>
     <mat-nav-list>
-      <div *ngIf="authService.isGuest()">
-        <a mat-list-item [routerLink]="['/login']">Login</a>
+      <div *ngIf="isGuest">
+        <a mat-list-item [routerLink]="['/login']">Log in</a>
+        <a mat-list-item [routerLink]="['/login']">Sign up</a>
       </div>
-      <div *ngIf="!authService.isGuest()">
+      <div *ngIf="!isGuest">
         <a mat-list-item [routerLink]="['/dashboard']">Dashboard</a>
         <a mat-list-item [routerLink]="['/todos']">Todos</a>
-        <a mat-list-item (click)="logOut()">Logout</a>
+        <a mat-list-item (click)="doLogout()">Logout</a>
       </div>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar color="primary">
-      <button
-        type="button"
-        aria-label="Toggle sidenav"
-        mat-icon-button
-        (click)="drawer.toggle()"
-        *ngIf="isHandset$ | async">
-        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+<!--      <button-->
+<!--        type="button"-->
+<!--        aria-label="Toggle sidenav"-->
+<!--        mat-icon-button-->
+<!--        (click)="drawer.toggle()"-->
+<!--        *ngIf="isHandset$ | async">-->
+<!--        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>-->
+<!--      </button>-->
+      <button mat-button routerLink="{{isGuest ? '/' : '/dashboard'}}">
+        <mat-icon aria-hidden="false" aria-label="homepage">view_agenda</mat-icon>
+        todarch
       </button>
-      <span routerLink="/dashboard">todarch</span>
-      <div *ngIf="!authService.isGuest()">
-        <button mat-button [routerLink]="['/todos']">Todos</button>
+      <div *ngIf="!isGuest">
       </div>
       <span class="example-spacer"></span>
-      <div *ngIf="authService.isGuest()">
-        <a mat-button [routerLink]="['/login']">Login</a>
+      <div *ngIf="isGuest">
+        <a mat-button [routerLink]="['/login']">Log in</a>
+        <a mat-button color="accent" [routerLink]="['/login']">Sign up</a>
       </div>
-      <div *ngIf="!authService.isGuest()">
+      <div *ngIf="!isGuest">
         <button mat-button routerLink="/todos/new">
           <mat-icon class="example-icon" aria-hidden="false" aria-label="Create New Todo">add</mat-icon>
         </button>
@@ -43,7 +47,7 @@
         </button>
         <mat-menu #menu="matMenu">
           <button mat-menu-item>Settings</button>
-          <button mat-menu-item (click)="logOut()">Log out</button>
+          <button mat-menu-item (click)="doLogout()">Log out</button>
         </mat-menu>
       </div>
     </mat-toolbar>
@@ -53,12 +57,4 @@
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
-<footer class="page-footer">
-  <div class="container">
-  </div>
-  <div class="footer-copyright">
-    <div class="container">
-      Copyright © 2018-2020. All Rights Reserved.
-    </div>
-  </div>
-</footer>
+<app-footer></app-footer>

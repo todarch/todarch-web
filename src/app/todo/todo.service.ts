@@ -20,7 +20,7 @@ export class Todo {
   providedIn: 'root'
 })
 export class TodoService extends AbstractService {
-  resource = '/todos';
+  resource = '/api/todos';
 
   constructor(private http: HttpClient) {
     super();

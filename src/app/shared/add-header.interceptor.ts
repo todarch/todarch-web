@@ -7,15 +7,15 @@ import {Observable} from 'rxjs';
 })
 export class AddHeaderInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log(`AddHeaderInterceptor - ${req.url}`);
+    // console.log(`AddHeaderInterceptor - ${req.url}`);
+    //
+    // const httpRequest = req.clone({
+    //   setHeaders: {
+    //     'Content-Type': 'application/json'
+    //   }
+    // });
 
-    const httpRequest = req.clone({
-      setHeaders: {
-        'Content-Type': 'application/json'
-      }
-    });
-
-    return next.handle(httpRequest);
+    return next.handle(req);
   }
 
 }

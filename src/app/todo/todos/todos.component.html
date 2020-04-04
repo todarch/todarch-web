@@ -1,13 +1,16 @@
 <!--<h1 class="mat-h1">Todos-->
 <!--</h1>-->
 <div *ngIf="!hasTodos()">
+  <div class="example-container">
   <p>You have no todos yet!</p>
   <button mat-raised-button
           color="primary"
           routerLink="/todos/new">
     Add Todo</button>
+  </div>
 </div>
 
+<div *ngIf="hasTodos()">
   <mat-tab-group>
     <mat-tab label="Today"></mat-tab>
     <mat-tab label="All"> Content 2 </mat-tab>
@@ -71,3 +74,4 @@
                    [pageSizeOptions]="[25, 50, 100, 250]">
     </mat-paginator>
   </div>
+</div>

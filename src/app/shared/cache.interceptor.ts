@@ -12,30 +12,31 @@ export class CacheInterceptor implements HttpInterceptor {
   constructor(private cacheService: HttpCacheService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log(`CacheInterceptor - ${req.url}`);
-
-    if (req.method !== 'GET') {
-      console.log(`Invalidating cache: ${req.method} ${req.url}`);
-      this.cacheService.invalidateCache();
-      return next.handle(req);
-    }
-
-    const cachedResponse: HttpResponse<any> = this.cacheService.get(req.url);
-
-    if (cachedResponse) {
-      console.log(`Returning a cached response: ${cachedResponse.url}`);
-      return of(cachedResponse);
-    }
-
-    return next.handle(req)
-      .pipe(
-        tap(event => {
-          if (event.type === HttpEventType.Response) {
-            console.log(`Adding item to cache: ${req.url}`);
-            this.cacheService.put(req.url, event);
-          }
-        })
-      );
+    // console.log(`CacheInterceptor - ${req.url}`);
+    //
+    // if (req.method !== 'GET') {
+    //   console.log(`Invalidating cache: ${req.method} ${req.url}`);
+    //   this.cacheService.invalidateCache();
+    //   return next.handle(req);
+    // }
+    //
+    // const cachedResponse: HttpResponse<any> = this.cacheService.get(req.url);
+    //
+    // if (cachedResponse) {
+    //   console.log(`Returning a cached response: ${cachedResponse.url}`);
+    //   return of(cachedResponse);
+    // }
+    //
+    // return next.handle(req)
+    //   .pipe(
+    //     tap(event => {
+    //       if (event.type === HttpEventType.Response) {
+    //         console.log(`Adding item to cache: ${req.url}`);
+    //         this.cacheService.put(req.url, event);
+    //       }
+    //     })
+    //   );
+    return next.handle(req);
   }
 
 }

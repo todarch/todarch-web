@@ -20,6 +20,7 @@ import {MatNativeDateModule} from '@angular/material/core';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 /**
@@ -50,7 +51,8 @@ import {MatTabsModule} from '@angular/material/tabs';
     MatDatepickerModule,
     MatNativeDateModule,
     MatSnackBarModule,
-    MatTabsModule
+    MatTabsModule,
+    MatProgressSpinnerModule
   ]
 })
 export class MaterialModule { }

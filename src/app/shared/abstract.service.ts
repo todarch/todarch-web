@@ -1,9 +1,10 @@
 import {Observable, of, throwError} from 'rxjs';
 import {HttpErrorResponse} from '@angular/common/http';
 import {ErrorResponse} from './error-response';
+import {environment} from '../../environments/environment';
 
 export class AbstractService {
-  base = 'http://localhost:3000';
+  base = environment.apiUrl;
   resource = '';
 
   get url() {
@@ -16,7 +17,7 @@ export class AbstractService {
    * @param result - optional value to return as the observable result
    */
   protected handleError(operation = 'operation',
-                           error: HttpErrorResponse): Observable<ErrorResponse> {
+                        error: HttpErrorResponse): Observable<ErrorResponse> {
     this.log(`${operation} failed: ${error.message}`);
     const errorResponse = new ErrorResponse();
     errorResponse.errorNumber = -1;

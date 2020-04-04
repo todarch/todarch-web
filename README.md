@@ -42,10 +42,38 @@ docker run -it -p 80:80 --rm todarch:web
 
 ## keycloak integration
 
+- instead of using keycloak-js adapter, can use even a higher abstraction for angular.
+
 ```shell
 npm i keycloak-js --save
 # update main.ts
 ```
 
 - add cors value on keycloak client configuration
+
+### using angular-keycloak
+
+```shell
+npm i --save keycloak-angular
+
+# install peer dependency, use same version as server
+npm i --save keycloak-js@9.0.2
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
