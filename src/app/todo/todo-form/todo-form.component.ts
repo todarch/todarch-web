@@ -56,14 +56,14 @@ export class TodoFormComponent implements OnInit {
           .subscribe((todo: Todo) => {
               this.todoForm.patchValue(todo);
               this.todo = todo;
-              this.pageHeader = 'Edit Todo';
+              this.pageHeader = 'Edit todo';
               this.buttonText = 'Save';
               // this.loadingService.resolve('invoice');
             },
             err => this.router.navigate(['/not-found']));
       } else {
         this.todo = new Todo();
-        this.pageHeader = 'New Todo';
+        this.pageHeader = 'Create a new todo';
         this.buttonText = 'Create';
         // this.loadingService.resolve('invoice');
       }
