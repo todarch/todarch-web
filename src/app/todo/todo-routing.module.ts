@@ -7,10 +7,11 @@ import {TodoResolverService} from './todo-resolver.service';
 
 
 const routes: Routes = [
-  { path: 'todos', component: TodosComponent },
-  { path: 'todos/new', component: TodoFormComponent },
-  { path: 'todos/:id', component: TodoComponent },
-  { path: 'todos/:id/edit', component: TodoFormComponent, resolve: { resolvedTodo: TodoResolverService}}
+  // the path in AppRoutingModule is already set to todos
+  { path: '', component: TodosComponent },
+  { path: 'new', component: TodoFormComponent },
+  { path: ':id', component: TodoComponent },
+  { path: ':id/edit', component: TodoFormComponent, resolve: { resolvedTodo: TodoResolverService}}
 ];
 
 @NgModule({

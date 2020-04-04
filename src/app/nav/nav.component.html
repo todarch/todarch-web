@@ -10,7 +10,6 @@
         <a mat-list-item [routerLink]="['/login']">Sign up</a>
       </div>
       <div *ngIf="!isGuest">
-        <a mat-list-item [routerLink]="['/dashboard']">Dashboard</a>
         <a mat-list-item [routerLink]="['/todos']">Todos</a>
         <a mat-list-item (click)="doLogout()">Logout</a>
       </div>

@@ -1,18 +1,22 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {NotFoundComponent} from './not-found/not-found.component';
-import {DashboardComponent} from './dashboard/dashboard.component';
 import {WelcomeComponent} from './welcome/welcome.component';
 import {AppAuthGuard} from './app.authguard';
 
 
 const routes: Routes = [
+  {
+    path: 'todos',
+    loadChildren: () => import('./todo/todo.module').then(m => m.TodoModule),
+    canActivate: [AppAuthGuard]
+  },
   { path: 'demo', loadChildren: '/demo/demo.module#DemoModule'},
-  { path: 'welcome', component: WelcomeComponent },
-  { path: 'dashboard', component: DashboardComponent, canActivate: [AppAuthGuard]},
   { path: '', redirectTo: '/welcome', pathMatch: 'full' },
+  { path: 'welcome', component: WelcomeComponent },
   { path: 'login', redirectTo: '/dashboard' },
-  { path: '**', component: NotFoundComponent }
+  { path: 'dashboard', redirectTo: '/todos'},
+  { path: '**', component: NotFoundComponent },
 ];
 
 @NgModule({

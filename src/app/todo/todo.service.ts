@@ -14,6 +14,8 @@ export class Todo {
   status: string;
   isPrivate: boolean;
   doneOn?: number;
+  timeNeededInMin: number;
+  tags: string[];
 }
 
 @Injectable({

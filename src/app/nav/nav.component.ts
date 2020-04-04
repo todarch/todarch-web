@@ -2,7 +2,6 @@ import {Component, Input, OnInit} from '@angular/core';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {Observable} from 'rxjs';
 import {map, shareReplay} from 'rxjs/operators';
-import {Router} from '@angular/router';
 import {KeycloakProfile} from 'keycloak-js';
 import {KeycloakService} from 'keycloak-angular';
 
@@ -29,6 +28,8 @@ export class NavComponent implements OnInit {
     if (await this.keycloakService.isLoggedIn()) {
       this.userDetails = await this.keycloakService.loadUserProfile();
       this.isGuest = false;
+    } else {
+      this.isGuest = true;
     }
   }
 
