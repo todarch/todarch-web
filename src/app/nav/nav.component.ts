@@ -1,9 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {Observable} from 'rxjs';
 import {map, shareReplay} from 'rxjs/operators';
-import {KeycloakProfile} from 'keycloak-js';
-import {KeycloakService} from 'keycloak-angular';
+import {AuthService} from '../shared/auth.service';
 
 @Component({
   selector: 'app-nav',
@@ -11,7 +10,6 @@ import {KeycloakService} from 'keycloak-angular';
   styleUrls: ['./nav.component.css']
 })
 export class NavComponent implements OnInit {
-  userDetails: KeycloakProfile;
   isGuest;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
@@ -22,19 +20,14 @@ export class NavComponent implements OnInit {
     );
 
   constructor(private breakpointObserver: BreakpointObserver,
-              private keycloakService: KeycloakService) {}
+              private authService: AuthService) {}
 
   async ngOnInit() {
-    if (await this.keycloakService.isLoggedIn()) {
-      this.userDetails = await this.keycloakService.loadUserProfile();
-      this.isGuest = false;
-    } else {
-      this.isGuest = true;
-    }
+    await this.authService.isLoggedIn();
+    this.isGuest = this.authService.isGuest();
   }
 
   async doLogout() {
-    await this.keycloakService.logout();
-    this.isGuest = true;
+    await this.authService.doLogout();
   }
 }
