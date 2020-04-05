@@ -1,77 +1,95 @@
-<!--<h1 class="mat-h1">Todos-->
-<!--</h1>-->
-<div *ngIf="!hasTodos()">
-  <div class="example-container">
-  <p>You have no todos yet!</p>
-  <button mat-raised-button
-          color="primary"
-          routerLink="/todos/new">
-    Add Todo</button>
+<ng-container *ngIf="showProgress">
+  <mat-spinner></mat-spinner>
+</ng-container>
+<ng-container *ngIf="!showProgress">
+  <div *ngIf="!hasTodos()">
+    <div class="example-container">
+      <p>You have no todos yet!</p>
+      <button mat-raised-button
+              color="primary"
+              routerLink="/todos/new">
+        Add Todo</button>
+    </div>
   </div>
-</div>
 
-<div *ngIf="hasTodos()">
-  <mat-tab-group>
-    <mat-tab label="Today"></mat-tab>
-    <mat-tab label="All"> Content 2 </mat-tab>
-    <mat-tab label="Done"> Content 3 </mat-tab>
-  </mat-tab-group>
+  <div *ngIf="hasTodos()">
+    <mat-tab-group>
+      <mat-tab label="Today"></mat-tab>
+      <mat-tab label="All"> Content 2 </mat-tab>
+      <mat-tab label="Done"> Content 3 </mat-tab>
+    </mat-tab-group>
 
-<div class="example-container">
-  <mat-form-field appearance="fill" class="table-filter-input">
-    <mat-label>Filter</mat-label>
-    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Ex. type something">
-  </mat-form-field>
-    <mat-slide-toggle (change)="togglePrivate($event)">Show Private</mat-slide-toggle>
-</div>
-  <div class="mat-elevation-z8">
-    <table mat-table [dataSource]="dataSource" class="full-width-table" matSort aria-label="Elements">
-      <!-- Id Column -->
-      <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
-        <td mat-cell *matCellDef="let row">
-          <a [routerLink]="['/todos/', row.id]">{{row.id}}</a>
+    <div class="example-container">
+      <div fxLayout="row" fxLayoutAlign="space-between center" >
+      <div fxFlex="%70">
+        <mat-form-field appearance="fill" class="table-filter-input">
+          <mat-label>Filter</mat-label>
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Ex. type something">
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-slide-toggle (change)="togglePrivate($event)">Show Private</mat-slide-toggle>
+      </div>
+      </div>
+    </div>
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource" class="full-width-table" matSort aria-label="Elements">
+        <!-- Id Column -->
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+          <td mat-cell *matCellDef="let row">
+            <a [routerLink]="['/todos/', row.id]">{{row.id}}</a>
+        </ng-container>
+
+        <ng-container matColumnDef="title">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Title</th>
+          <td mat-cell *matCellDef="let row">{{row.title}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="priority">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Priority</th>
+          <td mat-cell *matCellDef="let row">{{row.priority}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Actions</th>
+          <td mat-cell *matCellDef="let row">
+            <div fxLayout="row" fxLayoutAlign="space-between center" >
+<!--            <button mat-button routerLink="/todos/{{row.id}}/edit" class="action-button">-->
+<!--              <mat-icon aria-hidden="false" aria-label="Edit" >edit</mat-icon>-->
+<!--            </button>-->
+            <div>
+            <button mat-button (click)="done(row)" class="action-button">
+              <mat-icon aria-hidden="false" aria-label="Mark as Done" class="action-button">done</mat-icon>
+            </button>
+            </div>
+<!--            <button mat-button (click)="delete(row)" class="action-button">-->
+<!--              <mat-icon aria-hidden="false" aria-label="Delete">delete</mat-icon>-->
+<!--            </button>-->
+              <div>
+            <button mat-button routerLink="/todos/{{row.id}}" class="action-button">
+              <mat-icon aria-hidden="false" aria-label="Show Details" class="action-button">more_vert</mat-icon>
+            </button>
+              </div>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+
+        </tr>
+      </table>
+
+      <ng-container *ngIf="todos.length > 50">
+        <mat-paginator #paginator
+                       [length]="dataSource?.data.length"
+                       [pageIndex]="0"
+                       [pageSize]="50"
+                       [pageSizeOptions]="[25, 50, 100, 250]">
+        </mat-paginator>
       </ng-container>
-
-      <ng-container matColumnDef="title">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Title</th>
-        <td mat-cell *matCellDef="let row">{{row.title}}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="priority">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Priority</th>
-        <td mat-cell *matCellDef="let row">{{row.priority}}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Actions</th>
-        <td mat-cell *matCellDef="let row">
-          <button mat-button routerLink="/todos/{{row.id}}">
-            <mat-icon aria-hidden="false" aria-label="Show Details" >more_vert</mat-icon>
-          </button>
-          <button mat-button routerLink="/todos/{{row.id}}/edit">
-            <mat-icon aria-hidden="false" aria-label="Edit" >edit</mat-icon>
-          </button>
-          <button mat-button (click)="done(row)">
-            <mat-icon aria-hidden="false" aria-label="Mark as Done">done</mat-icon>
-          </button>
-          <button mat-button (click)="delete(row)">
-            <mat-icon aria-hidden="false" aria-label="Delete">delete</mat-icon>
-          </button>
-        </td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;">
-
-      </tr>
-    </table>
-
-    <mat-paginator #paginator
-                   [length]="dataSource?.data.length"
-                   [pageIndex]="0"
-                   [pageSize]="50"
-                   [pageSizeOptions]="[25, 50, 100, 250]">
-    </mat-paginator>
+    </div>
   </div>
-</div>
+
+</ng-container>

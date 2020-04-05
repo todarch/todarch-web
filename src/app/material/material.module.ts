@@ -21,6 +21,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {FlexLayoutModule} from '@angular/flex-layout';
 
 
 /**
@@ -29,6 +30,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 @NgModule({
   declarations: [],
   exports: [
+    FlexLayoutModule,
     MatInputModule,
     MatButtonModule,
     MatSelectModule,

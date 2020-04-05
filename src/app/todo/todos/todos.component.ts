@@ -19,13 +19,14 @@ export class TodosComponent implements OnInit, AfterViewInit {
   @ViewChild(MatTable) table: MatTable<Todo>;
   dataSource: MatTableDataSource<Todo>;
   showPrivate = false;
+  showProgress = true;
 
   todos: Todo[];
 
   displayedColumns = [
-    'id',
+    // 'id',
     'title',
-    'priority',
+    // 'priority',
     'actions'
   ];
 
@@ -48,9 +49,10 @@ export class TodosComponent implements OnInit, AfterViewInit {
           this.dataSource = new MatTableDataSource<Todo>(this.getTodosToShow(this.showPrivate));
           this.initTable();
           console.log(todos);
+          this.showProgress = false;
       },
         error => {
-
+          this.showProgress = false;
         }
     );
   }
