@@ -14,6 +14,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {KeycloakAngularModule, KeycloakService} from 'keycloak-angular';
 import {environment} from '../environments/environment';
 import {FooterComponent} from './footer/footer.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 const keycloakService = new KeycloakService();
 
@@ -24,6 +25,7 @@ const keycloakService = new KeycloakService();
     NavComponent,
     WelcomeComponent,
     FooterComponent,
+    DashboardComponent,
   ],
   imports: [
     KeycloakAngularModule,

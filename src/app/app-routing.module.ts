@@ -3,6 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {NotFoundComponent} from './not-found/not-found.component';
 import {WelcomeComponent} from './welcome/welcome.component';
 import {AppAuthGuard} from './app.authguard';
+import {DashboardComponent} from './dashboard/dashboard.component';
 
 
 const routes: Routes = [
@@ -14,8 +15,9 @@ const routes: Routes = [
   { path: 'demo', loadChildren: '/demo/demo.module#DemoModule'},
   { path: '', redirectTo: '/welcome', pathMatch: 'full' },
   { path: 'welcome', component: WelcomeComponent },
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AppAuthGuard] },
   { path: 'login', redirectTo: '/dashboard' },
-  { path: 'dashboard', redirectTo: '/todos'},
+  { path: 'sign-up', redirectTo: '/dashboard' },
   { path: '**', component: NotFoundComponent },
 ];
 

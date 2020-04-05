@@ -7,7 +7,7 @@
     <mat-nav-list>
       <div *ngIf="isGuest">
         <a mat-list-item [routerLink]="['/login']">Log in</a>
-        <a mat-list-item [routerLink]="['/login']">Sign up</a>
+        <a mat-list-item [routerLink]="['/sign-up']">Sign up</a>
       </div>
       <div *ngIf="!isGuest">
         <a mat-list-item [routerLink]="['/todos']">Todos</a>
@@ -34,7 +34,7 @@
       <span class="example-spacer"></span>
       <div *ngIf="isGuest">
         <a mat-button [routerLink]="['/login']">Log in</a>
-        <a mat-button color="accent" [routerLink]="['/login']">Sign up</a>
+        <a mat-button color="accent" [routerLink]="['/sign-up']">Sign up</a>
       </div>
       <div *ngIf="!isGuest">
         <button mat-button routerLink="/todos/new">
